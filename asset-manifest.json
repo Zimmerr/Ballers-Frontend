@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ballers/static/css/main.073c9b0a.css",
+    "main.js": "/ballers/static/js/main.57afeb26.js",
+    "static/js/787.5ab8e825.chunk.js": "/ballers/static/js/787.5ab8e825.chunk.js",
+    "static/media/logo.svg": "/ballers/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/ballers/index.html",
+    "main.073c9b0a.css.map": "/ballers/static/css/main.073c9b0a.css.map",
+    "main.57afeb26.js.map": "/ballers/static/js/main.57afeb26.js.map",
+    "787.5ab8e825.chunk.js.map": "/ballers/static/js/787.5ab8e825.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.57afeb26.js"
+  ]
+}
