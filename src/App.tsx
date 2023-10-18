@@ -1,24 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import useGoogleAuthToken from "./hooks/useGoogleAuthToken";
+import useGoogleAuthLink from "./hooks/useGoogleAuthLink";
+import usePerfil from "./hooks/usePerfil";
 
 function App() {
+  const { data: profile, refetch: fetchProfile } = usePerfil();
+  const { data: googleAuth, refetch: fetchGoogleAuth } = useGoogleAuthLink();
+  const { mutate, isSuccess } = useGoogleAuthToken();
+
+  useEffect(() => {   
+    if (googleAuth) {
+      window.location.replace(googleAuth.authorization_url);
+    }
+  }, [googleAuth]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(document.location.search);
+
+    const code = searchParams.get("code");
+    const state = searchParams.get("state");
+
+    console.log(code)
+    console.log(state)
+
+    if (code && state) {
+      mutate({ code, state });
+    }
+  }, [mutate]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      fetchProfile();
+    }
+  }, [isSuccess, fetchProfile]);
+
+  useEffect(() => {
+    if (googleAuth) {
+      window.location.replace(googleAuth.authorization_url);
+    }
+  }, [googleAuth]);
+
+  const handleGoogleLogin = () => {
+    fetchGoogleAuth();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {profile ? (
+        <h1>Hello {profile.nome}!</h1>
+      ) : (
+        <button onClick={handleGoogleLogin}>Login with Google</button>
+      )}
     </div>
   );
 }
