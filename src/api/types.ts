@@ -9,7 +9,7 @@ export interface OAuthCredential {
 
 export interface Perfil {
   id: number;
-  nome: string;
-  sobrenome: string;
+  first_name: string;
+  last_name: string;
   email: string;
 }
