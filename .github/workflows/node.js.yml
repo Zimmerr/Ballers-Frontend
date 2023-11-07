@@ -32,8 +32,9 @@ jobs:
     - name: Run tests
       run: npm test
     - name: Run code checks
-      run: npm run eslint
-      run: npm run prettier
+      run: |
+        npm run eslint
+        npm run prettier
     - name: Build
       run: npm run build
     - name: Deploy
