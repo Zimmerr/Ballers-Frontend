@@ -5,20 +5,19 @@ import usePerfil from "../../../hooks/usePerfil";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
-
   const { data: profile, refetch: fetchProfile } = usePerfil();
   const { data: googleAuth, refetch: fetchGoogleAuth } = useGoogleAuthLink();
   const { mutate, isSuccess } = useGoogleAuthToken();
 
   const history = useHistory();
 
-  useEffect(() => {   
+  useEffect(() => {
     if (profile) {
-      history.push('/landing')
+      history.push("/landing");
     }
   }, [profile, history]);
 
-  useEffect(() => {   
+  useEffect(() => {
     if (googleAuth) {
       window.location.replace(googleAuth.authorization_url);
     }
@@ -59,7 +58,7 @@ const Login = () => {
         <button onClick={handleGoogleLogin}>Login with Google</button>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Login;

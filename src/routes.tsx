@@ -12,17 +12,19 @@ interface Props {
   key: number;
 }
 
-const PrivateRouter : React.FC<Props> = (
-  { component: Component, tipoUsuario, path, exact }
-) => {
+const PrivateRouter: React.FC<Props> = ({
+  component: Component,
+  tipoUsuario,
+  path,
+  exact,
+}) => {
   const { data: profile } = usePerfil();
 
-  console.log(profile)
   return (
     <Route
       path={path}
       exact={exact}
-      render={(props : Record<string, any>) =>
+      render={(props: Record<string, any>) =>
         profile ? (
           tipoUsuario ? (
             <Component {...props} />
@@ -32,20 +34,17 @@ const PrivateRouter : React.FC<Props> = (
             />
           )
         ) : (
-          <Redirect
-            to={{ pathname: "/", state: { from: props.location } }}
-          />
+          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
         )
       }
     />
   );
-}
+};
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      
-      {RoutesConfig.map((value : Rota, key) => {
+      {RoutesConfig.map((value: Rota, key) => {
         return (
           <PrivateRouter
             key={key}
