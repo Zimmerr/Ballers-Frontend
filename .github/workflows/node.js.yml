@@ -33,7 +33,7 @@ jobs:
       run: npm test
     - name: Run code checks
       run: npm run eslint
-      ruy: npm run prettier
+      run: npm run prettier
     - name: Build
       run: npm run build
     - name: Deploy
