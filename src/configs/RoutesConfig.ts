@@ -1,4 +1,4 @@
-import Landing from "../components/screens/Landing";
+import LandingPage from "../pages/LandingPage";
 
 export interface Rota {
   path: string;
@@ -10,7 +10,7 @@ export interface Rota {
 const RoutesConfig: Array<Rota> = [
   {
     path: "/landing",
-    component: Landing,
+    component: LandingPage,
     exact: false,
     tipoUsuario: true,
   },
