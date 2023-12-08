@@ -1,10 +1,8 @@
 import React, { ReactNode } from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Button, Flex, Layout, Menu, Tooltip, theme } from "antd";
+import "./style.scss";
+import { listMenu } from "./menus";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -17,28 +15,39 @@ export const Page: React.FC<Props> = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    location.reload();
+  };
+
   return (
-    <Layout>
+    <Layout className="system-layout">
       <Sider breakpoint="lg" collapsedWidth="0">
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={[
-            UserOutlined,
-            VideoCameraOutlined,
-            UploadOutlined,
-            UserOutlined,
-          ].map((icon, index) => ({
-            key: String(index + 1),
-            icon: React.createElement(icon),
-            label: `nav ${index + 1}`,
+          items={listMenu.map((obj, index) => ({
+            key: String(index),
+            icon: React.createElement(obj.icon),
+            label: obj.titulo,
           }))}
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Flex className="flex-reverse">
+            <Tooltip title="Logout">
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<LogoutOutlined />}
+                onClick={logout}
+              />
+            </Tooltip>
+          </Flex>
+        </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
