@@ -3,6 +3,7 @@ import Routes from "./routes";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
+import ptBR from "antd/locale/pt_BR";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ function App() {
           colorPrimary: "#00b96b",
         },
       }}
+      locale={ptBR}
     >
       <QueryClientProvider client={queryClient}>
         <Routes />
