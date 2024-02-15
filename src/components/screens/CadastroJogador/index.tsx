@@ -1,36 +1,72 @@
-import { Button, DatePicker, Form, Input, InputNumber, message } from "antd";
+import { App, Button, DatePicker, Form, Input, InputNumber } from "antd";
 import { MaskedInput } from "antd-mask-input";
-import { Jogador, JogadorPayload } from "../../../interfaces/jogador";
+import { Jogador, JogadorPayload } from "../../../interfaces/jogador.interface";
 import dayjs from "dayjs";
-import { cadastrarJogador } from "../../../api/jogador";
+import {
+  cadastrarJogador,
+  editarJogador,
+  getJogador,
+} from "../../../api/jogador";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { consultaJogador } from "../../../configs/constants";
+import { useEffect, useState } from "react";
 
 const CadastroJogador = () => {
-  const [messageApi, contextHolder] = message.useMessage();
+  const { message } = App.useApp();
+  const [form] = Form.useForm();
+  const history = useHistory();
+  const [initialValues, setInitialValues] = useState<Jogador>({} as Jogador);
+
+  const carregaJogador = async (uuid: string) => {
+    const response = await getJogador(uuid);
+    setInitialValues(response.data);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const uuid = urlParams.get("uuid");
+
+    if (uuid) {
+      carregaJogador(uuid);
+    }
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      ...initialValues,
+      data_nasc: dayjs(initialValues.data_nasc, "YYYY-MM-DD"),
+    });
+  }, [initialValues]);
 
   const onFinish = async (values: Jogador) => {
     const payload: JogadorPayload = {
       nome: values.nome,
       altura: values.altura,
       cpf: values.cpf.replace(/\D+/g, ""),
-      data_nasc: dayjs(values.dataNasc).format("YYYY-MM-DD"),
+      data_nasc: dayjs(values.data_nasc).format("YYYY-MM-DD"),
     };
 
     try {
-      const response = await cadastrarJogador(payload);
-      if (response.status === 201) {
-        messageApi.success("Cadastrado com sucesso!");
+      const response = initialValues.uuid
+        ? await editarJogador(payload, initialValues.uuid)
+        : await cadastrarJogador(payload);
+      if (response.status === 200 || response.status === 201) {
+        history.push(`${consultaJogador}`);
+        message.success(
+          `${initialValues.uuid ? "Editado" : "Cadastrado"} com sucesso!`,
+        );
       } else {
-        messageApi.error("Ocorreu um erro no Cadastro!");
+        message.error("Ocorreu um erro no Cadastro!");
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
         if (
           e.response?.data.cpf[0] === "Jogador with this cpf already exists."
         ) {
-          messageApi.warning("Já existe jogador com esse CPF!");
+          message.warning("Já existe jogador com esse CPF!");
         } else {
-          messageApi.error("Ocorreu um erro no Cadastro!");
+          message.error("Ocorreu um erro no Cadastro!");
         }
       }
     }
@@ -42,14 +78,14 @@ const CadastroJogador = () => {
 
   return (
     <Form
-      name="basic"
+      form={form}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
       onFinish={onFinish}
       validateMessages={validateMessages}
+      initialValues={initialValues}
     >
-      {contextHolder}
       <Form.Item<Jogador>
         label="Nome completo"
         name="nome"
@@ -72,7 +108,7 @@ const CadastroJogador = () => {
 
       <Form.Item<Jogador>
         label="Data de Nascimento"
-        name="dataNasc"
+        name="data_nasc"
         rules={[{ required: true }]}
       >
         <DatePicker format="DD/MM/YYYY" />
@@ -80,7 +116,7 @@ const CadastroJogador = () => {
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Cadastrar
+          {initialValues.uuid ? "Editar" : "Cadastrar"}
         </Button>
       </Form.Item>
     </Form>

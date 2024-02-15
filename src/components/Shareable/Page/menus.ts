@@ -16,7 +16,7 @@ export const listMenu: ItemMenu[] = [
   },
   {
     titulo: "Jogadores",
-    url: `/${constants.cadastroJogador}`,
+    url: `/${constants.consultaJogador}`,
     icon: UserOutlined,
   },
 ];

@@ -1,4 +1,5 @@
 import CadastroJogadorPage from "../pages/CadastroJogadorPage";
+import ConsultaJogadorPage from "../pages/ConsultaJogadorPage";
 import LandingPage from "../pages/LandingPage";
 import * as constants from "./constants";
 
@@ -19,6 +20,12 @@ const RoutesConfig: Array<Rota> = [
   {
     path: `/${constants.cadastroJogador}`,
     component: CadastroJogadorPage,
+    exact: false,
+    tipoUsuario: true,
+  },
+  {
+    path: `/${constants.consultaJogador}`,
+    component: ConsultaJogadorPage,
     exact: false,
     tipoUsuario: true,
   },

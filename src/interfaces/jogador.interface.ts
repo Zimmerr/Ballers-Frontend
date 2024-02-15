@@ -1,7 +1,8 @@
 export type Jogador = {
+  uuid: string;
   nome: string;
   altura: number;
-  dataNasc: Date;
+  data_nasc: Date;
   cpf: string;
 };
 
