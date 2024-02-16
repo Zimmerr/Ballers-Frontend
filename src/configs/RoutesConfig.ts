@@ -1,4 +1,7 @@
+import CadastroJogadorPage from "../pages/CadastroJogadorPage";
+import ConsultaJogadorPage from "../pages/ConsultaJogadorPage";
 import LandingPage from "../pages/LandingPage";
+import * as constants from "./constants";
 
 export interface Rota {
   path: string;
@@ -9,8 +12,20 @@ export interface Rota {
 
 const RoutesConfig: Array<Rota> = [
   {
-    path: "/landing",
+    path: `/${constants.landing}`,
     component: LandingPage,
+    exact: false,
+    tipoUsuario: true,
+  },
+  {
+    path: `/${constants.cadastroJogador}`,
+    component: CadastroJogadorPage,
+    exact: false,
+    tipoUsuario: true,
+  },
+  {
+    path: `/${constants.consultaJogador}`,
+    component: ConsultaJogadorPage,
     exact: false,
     tipoUsuario: true,
   },

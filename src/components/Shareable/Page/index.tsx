@@ -3,6 +3,7 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { Button, Flex, Layout, Menu, Tooltip, theme } from "antd";
 import "./style.scss";
 import { listMenu } from "./menus";
+import { NavLink } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,7 +32,7 @@ export const Page: React.FC<Props> = ({ children }) => {
           items={listMenu.map((obj, index) => ({
             key: String(index),
             icon: React.createElement(obj.icon),
-            label: obj.titulo,
+            label: <NavLink to={obj.url}>{obj.titulo}</NavLink>,
           }))}
         />
       </Sider>
