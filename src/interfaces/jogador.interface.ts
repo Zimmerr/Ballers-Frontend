@@ -6,6 +6,12 @@ export type Jogador = {
   cpf: string;
 };
 
+export type JogadorTransfer = {
+  nome: string;
+  cpf: string;
+  key: string;
+};
+
 export type JogadorPayload = {
   nome: string;
   altura: number;

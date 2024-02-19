@@ -1,4 +1,4 @@
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { ForwardRefExoticComponent } from "react";
 import * as constants from "../../../configs/constants";
@@ -18,5 +18,10 @@ export const listMenu: ItemMenu[] = [
     titulo: "Jogadores",
     url: `/${constants.consultaJogador}`,
     icon: UserOutlined,
+  },
+  {
+    titulo: "Time",
+    url: `/${constants.consultaTime}`,
+    icon: TeamOutlined,
   },
 ];
