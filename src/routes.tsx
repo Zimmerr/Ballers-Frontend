@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Login from "./components/screens/Login";
 import RoutesConfig, { Rota } from "./configs/RoutesConfig";
-import usePerfil from "./hooks/usePerfil";
 
 interface Props {
   component: React.FC;
@@ -18,14 +17,20 @@ const PrivateRouter: React.FC<Props> = ({
   path,
   exact,
 }) => {
-  const { data: profile } = usePerfil();
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <Route
       path={path}
       exact={exact}
       render={(props: Record<string, any>) =>
-        profile ? (
+        isLoggedIn() ? (
           tipoUsuario ? (
             <Component {...props} />
           ) : (

@@ -33,10 +33,12 @@ const CadastroJogador = () => {
   }, []);
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...initialValues,
-      data_nasc: dayjs(initialValues.data_nasc, "YYYY-MM-DD"),
-    });
+    if (initialValues.uuid) {
+      form.setFieldsValue({
+        ...initialValues,
+        data_nasc: dayjs(initialValues.data_nasc, "YYYY-MM-DD"),
+      });
+    }
   }, [initialValues]);
 
   const onFinish = async (values: Jogador) => {
