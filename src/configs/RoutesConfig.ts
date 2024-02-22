@@ -4,6 +4,8 @@ import CadastroTimePage from "../pages/CadastroTimePage";
 import ConsultaTimePage from "../pages/ConsultaTimePage";
 import LandingPage from "../pages/LandingPage";
 import * as constants from "./constants";
+import CadastroCampeonatoPage from "../pages/CadastroCampeonatoPage";
+import ConsultaCampeonatoPage from "../pages/ConsultaCampeonatoPage";
 
 export interface Rota {
   path: string;
@@ -40,6 +42,18 @@ const RoutesConfig: Array<Rota> = [
   {
     path: `/${constants.consultaTime}`,
     component: ConsultaTimePage,
+    exact: false,
+    tipoUsuario: true,
+  },
+  {
+    path: `/${constants.cadastroCampeonato}`,
+    component: CadastroCampeonatoPage,
+    exact: false,
+    tipoUsuario: true,
+  },
+  {
+    path: `/${constants.consultaCampeonato}`,
+    component: ConsultaCampeonatoPage,
     exact: false,
     tipoUsuario: true,
   },
