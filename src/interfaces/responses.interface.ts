@@ -1,3 +1,4 @@
+import { Campeonato } from "./campeonato.interface";
 import { Jogador } from "./jogador.interface";
 import { Time } from "./time.interface";
 
@@ -20,4 +21,12 @@ export interface ResponseTime extends ResponseInterface {
 
 export interface ResponseTimes extends ResponseInterface {
   data: Time[];
+}
+
+export interface ResponseCampeonato extends ResponseInterface {
+  data: Campeonato;
+}
+
+export interface ResponseCampeonatos extends ResponseInterface {
+  data: Campeonato[];
 }

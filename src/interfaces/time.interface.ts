@@ -14,3 +14,9 @@ export type TimePayload = {
   apelido: string;
   jogadores: string[];
 };
+
+export type TimeTransfer = {
+  nome: string;
+  abreviacao: string;
+  key: string;
+};
