@@ -1,4 +1,5 @@
 import {
+  CrownOutlined,
   HomeOutlined,
   TeamOutlined,
   TrophyOutlined,
@@ -34,4 +35,10 @@ export const listMenu: ItemMenu[] = [
     url: `/${constants.consultaCampeonato}`,
     icon: TrophyOutlined,
   },
+  {
+    titulo: "Partidas",
+    url: `/${constants.consultaPartida}`,
+    icon: CrownOutlined,
+  },
+
 ];

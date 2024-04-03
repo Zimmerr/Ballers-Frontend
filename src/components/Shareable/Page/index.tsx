@@ -28,7 +28,6 @@ export const Page: React.FC<Props> = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["4"]}
           items={listMenu.map((obj, index) => ({
             key: String(index),
             icon: React.createElement(obj.icon),

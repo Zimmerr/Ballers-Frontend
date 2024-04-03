@@ -5,3 +5,5 @@ export const cadastroTime = "cadastro-time";
 export const consultaTime = "time";
 export const cadastroCampeonato = "cadastro-campeonato";
 export const consultaCampeonato = "campeonato";
+export const cadastroPartida = "cadastro-partida";
+export const consultaPartida = "partida";
