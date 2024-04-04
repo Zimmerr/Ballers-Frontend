@@ -27,7 +27,8 @@
     "eqeqeq": "error",
     "yoda": "error",
     "no-var": "error",
-    "no-console": "warn"
+    "no-console": "warn",
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {

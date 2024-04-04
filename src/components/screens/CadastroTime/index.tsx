@@ -4,7 +4,7 @@ import { cadastrarTime, editarTime, getTime } from "../../../api/time";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { consultaTime } from "../../../configs/constants";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { JogadorTransfer } from "../../../interfaces/jogador.interface";
 import { getJogadores } from "../../../api/jogador";
 import TransferJogador from "./components/TransferJogador";
@@ -43,9 +43,9 @@ const CadastroTime = () => {
     .filter((item) => Number(item.key) % 3 > 1)
     .map((item) => item.key);
 
-  const [targetKeys, setTargetKeys] = useState<string[]>(originTargetKeys);
+  const [targetKeys, setTargetKeys] = useState<Key[]>(originTargetKeys);
 
-  const onChange = (nextTargetKeys: string[]) => {
+  const onChange = (nextTargetKeys: Key[]) => {
     setTargetKeys(nextTargetKeys);
   };
 
