@@ -24,12 +24,12 @@ const ConsultaPartida = () => {
     try {
       const response = await deletarPartida(uuid);
       if (response.status === 200) {
-        message.success("Jogador inativado com sucesso!");
+        message.success("Partida deletada com sucesso!");
         carregaPartidas();
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        message.error("Ocorreu um erro ao inativar Jogador!");
+        message.error("Ocorreu um erro ao deletar a Partida!");
       }
     }
   };
@@ -105,7 +105,6 @@ const ConsultaPartida = () => {
                       title="Deletar partida?"
                       description="Deseja deletar essa partida? Essa ação é irreversível"
                       onConfirm={() => {
-                        // TODO: IMPLEMENTAR DELETAR
                         deletaPartida(partida.uuid);
                       }}
                       okText="Sim"

@@ -1,77 +1,62 @@
-import { App, Button, Form, Input, Spin, TableColumnsType } from "antd";
+import { App, Button, Checkbox, Form, InputNumber, Select, Spin } from "antd";
 import { getTimes } from "../../../api/time";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { consultaCampeonato } from "../../../configs/constants";
-import { useEffect, useState } from "react";
-import { TimeTransfer } from "../../../interfaces/time.interface";
-import TransferTimes from "./components/TransferTimes";
+import { consultaPartida } from "../../../configs/constants";
+import { ReactNode, useEffect, useState } from "react";
 import {
-  cadastrarCampeonato,
-  editarCampeonato,
-  getCampeonato,
-} from "../../../api/campeonato";
+  cadastrarPartida,
+  editarPartida,
+  getPartida,
+} from "../../../api/partida";
 import {
-  Campeonato,
-  CampeonatoPayload,
-} from "../../../interfaces/campeonato.interface";
+  Partida,
+  PartidaPayload,
+} from "../../../interfaces/partida.interface";
+import { getCampeonatos } from "../../../api/campeonato";
 
-const leftTableColumns: TableColumnsType<TimeTransfer> = [
-  {
-    dataIndex: "nome",
-    title: "Nome",
-  },
-  {
-    dataIndex: "abreviacao",
-    title: "Abreviação",
-  },
-];
+type SelectOption = {
+  value: string;
+  label: ReactNode;
+}
 
-const rightTableColumns: TableColumnsType<TimeTransfer> = [
-  {
-    dataIndex: "nome",
-    title: "Nome",
-  },
-  {
-    dataIndex: "abreviacao",
-    title: "Abreviação",
-  },
-];
 
-const CadastroCampeonato = () => {
+const CadastroPartida = () => {
   const { message } = App.useApp();
   const [form] = Form.useForm();
   const history = useHistory();
-  const [initialValues, setInitialValues] = useState<Campeonato>(
-    {} as Campeonato,
+  const [initialValues, setInitialValues] = useState<Partida>(
+    {} as Partida,
   );
-  const [times, setTimes] = useState<TimeTransfer[]>([]);
+  const [times, setTimes] = useState<SelectOption[]>([]);
+  const [campeonatos, setCampeonatos] = useState<SelectOption[]>([]);
+  const [finalizada, setFinalizada] = useState<boolean>(false);
   const [carregando, setCarregando] = useState<boolean>(false);
 
-  const originTargetKeys = times
-    .filter((item) => Number(item.key) % 3 > 1)
-    .map((item) => item.key);
-
-  const [targetKeys, setTargetKeys] = useState<string[]>(originTargetKeys);
-
-  const onChange = (nextTargetKeys: string[]) => {
-    setTargetKeys(nextTargetKeys);
-  };
-
-  const carregaCampeonato = async (uuid: string) => {
-    const response = await getCampeonato(uuid);
+  const carregaPartida = async (uuid: string) => {
+    const response = await getPartida(uuid);
     setInitialValues(response.data);
   };
 
   const carregaTimes = async () => {
     setCarregando(true);
     const response = await getTimes();
-    let listaTransfer: TimeTransfer[] = response.data.map((j) => ({
-      nome: j.nome,
-      abreviacao: j.abreviacao,
-      key: j.uuid,
-    }));
-    setTimes(listaTransfer);
+    let options = response.data.map(time => ({
+      value: time.uuid,
+      label: <span>{time.abreviacao} - {time.nome}</span>
+    }))
+    setTimes(options);
+    setCarregando(false);
+  };
+
+  const carregaCampeonatos = async () => {
+    setCarregando(true);
+    const response = await getCampeonatos();
+    let options = response.data.map(camp => ({
+      value: camp.uuid,
+      label: <span>{camp.nome}</span>
+    }))
+    setCampeonatos(options);
     setCarregando(false);
   };
 
@@ -80,8 +65,9 @@ const CadastroCampeonato = () => {
     const uuid = urlParams.get("uuid");
 
     carregaTimes();
+    carregaCampeonatos();
     if (uuid) {
-      carregaCampeonato(uuid);
+      carregaPartida(uuid);
     }
   }, []);
 
@@ -89,15 +75,14 @@ const CadastroCampeonato = () => {
     if (initialValues.uuid) {
       form.setFieldsValue({
         ...initialValues,
-        times: initialValues.times.map((j) => j.uuid),
+
       });
 
-      setTargetKeys(initialValues.times.map((j) => j.uuid));
     }
   }, [initialValues]);
 
-  const onFinish = async (values: CampeonatoPayload) => {
-    const payload: CampeonatoPayload = {
+  const onFinish = async (values: PartidaPayload) => {
+    const payload: PartidaPayload = {
       nome: values.nome,
       descricao: values.descricao,
       times: values.times,
@@ -105,10 +90,10 @@ const CadastroCampeonato = () => {
 
     try {
       const response = initialValues.uuid
-        ? await editarCampeonato(payload, initialValues.uuid)
-        : await cadastrarCampeonato(payload);
+        ? await editarPartida(payload, initialValues.uuid)
+        : await cadastrarPartida(payload);
       if (response.status === 200 || response.status === 201) {
-        history.push(`${consultaCampeonato}`);
+        history.push(`${consultaPartida}`);
         message.success(
           `${initialValues.uuid ? "Editado" : "Cadastrado"} com sucesso!`,
         );
@@ -136,42 +121,63 @@ const CadastroCampeonato = () => {
         validateMessages={validateMessages}
         initialValues={initialValues}
       >
-        <Form.Item<Campeonato>
-          label="Nome"
-          name="nome"
+
+        {/* TODO: horario, data e quadra */}
+        
+        <Form.Item<Partida>
+          label="Time Casa"
+          name="time_casa"
           rules={[{ required: true }]}
-          wrapperCol={{ span: 8 }}
+          wrapperCol={{ span: 6 }}
         >
-          <Input />
+          <Select options={times} />
         </Form.Item>
 
-        <Form.Item<Campeonato>
-          label="Descrição"
-          name="descricao"
+        <Form.Item<Partida>
+          label="Time Fora"
+          name="time_fora"
           rules={[{ required: true }]}
-          wrapperCol={{ span: 12 }}
+          wrapperCol={{ span: 6 }}
         >
-          <Input.TextArea rows={8} maxLength={1000} />
+          <Select options={times} />
         </Form.Item>
 
-        <Form.Item<Campeonato>
-          label="Times"
-          name="times"
+        <Form.Item<Partida>
+          label="Campeonato"
+          name="campeonato"
           rules={[{ required: true }]}
+          wrapperCol={{ span: 6 }}
         >
-          <TransferTimes
-            dataSource={times}
-            targetKeys={targetKeys}
-            showSearch={true}
-            onChange={onChange}
-            filterOption={(inputValue: string, item: TimeTransfer) =>
-              item.nome!.indexOf(inputValue) !== -1 ||
-              item.abreviacao.indexOf(inputValue) !== -1
-            }
-            leftColumns={leftTableColumns}
-            rightColumns={rightTableColumns}
-          />
+          <Select options={campeonatos} />
         </Form.Item>
+
+        <Form.Item<Partida>
+          label="Partida Finalizada?"
+          name="finalizada"
+          wrapperCol={{ span: 6 }}
+        >
+          <Checkbox onChange={(e) => setFinalizada(e.target.checked)}>Sim, a partida já foi finalizada!</Checkbox>
+        </Form.Item>
+
+        {finalizada && <>
+          <Form.Item<Partida>
+            label="Gols - Time Casa"
+            name="gols_casa"
+            rules={[{ required: true }]}
+          >
+            <InputNumber precision={0} />
+          </Form.Item>
+          <Form.Item<Partida>
+            label="Gols - Time Fora"
+            name="gols_fora"
+            rules={[{ required: true }]}
+          >
+            <InputNumber precision={0} />
+          </Form.Item>
+        </>}
+
+        
+        
 
         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
           <Button type="primary" htmlType="submit">
@@ -183,4 +189,4 @@ const CadastroCampeonato = () => {
   );
 };
 
-export default CadastroCampeonato;
+export default CadastroPartida;
