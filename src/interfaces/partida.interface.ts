@@ -16,6 +16,7 @@ export type Partida = {
   campeonato: Campeonato;
   time_casa: Time;
   time_fora: Time;
+  data: string;
   horario: Horario;
   quadra: Quadra;
   finalizada: boolean;
@@ -24,7 +25,13 @@ export type Partida = {
 };
 
 export type PartidaPayload = {
-  nome: string;
-  descricao: string;
-  times: string[];
+  time_casa: string;
+  time_fora: string;
+  campeonato: string;
+  horario: string;
+  quadra: string;
+  data: string;
+  finalizada: boolean;
+  gols_casa?: number;
+  gols_fora?: number;
 };
