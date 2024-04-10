@@ -3,7 +3,7 @@ import Page from "../components/Shareable/Page";
 import ConsultaCampeonato from "../components/screens/ConsultaCampeonato";
 
 const ConsultaCampeonatoPage = () => (
-  <Page>
+  <Page titulo={"Consulta de Campeonato"}>
     <ConsultaCampeonato />
   </Page>
 );

@@ -3,7 +3,7 @@ import Page from "../components/Shareable/Page";
 import ConsultaTime from "../components/screens/ConsultaTime";
 
 const ConsultaTimePage = () => (
-  <Page>
+  <Page titulo={"Consulta de Time"}>
     <ConsultaTime />
   </Page>
 );

@@ -3,7 +3,7 @@ import Page from "../components/Shareable/Page";
 import CadastroPartida from "../components/screens/CadastroPartida";
 
 const CadastroPartidaPage = () => (
-  <Page>
+  <Page titulo={"Cadastro de Partida"}>
     <CadastroPartida />
   </Page>
 );

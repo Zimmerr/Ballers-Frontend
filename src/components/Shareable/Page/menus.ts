@@ -40,5 +40,4 @@ export const listMenu: ItemMenu[] = [
     url: `/${constants.consultaPartida}`,
     icon: CrownOutlined,
   },
-
 ];
