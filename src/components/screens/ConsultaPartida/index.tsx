@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { Horario, Partida, Quadra } from "../../../interfaces/partida.interface";
+import {
+  Horario,
+  Partida,
+  Quadra,
+} from "../../../interfaces/partida.interface";
 import { App, Button, Popconfirm, Space, Spin, Table } from "antd";
 import { deletarPartida, getPartidas } from "../../../api/partida";
 import { NavLink } from "react-router-dom";
@@ -53,15 +57,21 @@ const ConsultaPartida = () => {
             {
               title: "Partida",
               key: "partida",
-              render: (partida : Partida) => {
-                return <>{`${partida.time_casa.abreviacao} ${partida.finalizada ? partida.gols_casa : ""} x ${partida.finalizada ? partida.gols_fora : ""} ${partida.time_fora.abreviacao}`}</>;
+              render: (partida: Partida) => {
+                return (
+                  <>{`${partida.time_casa.abreviacao} ${
+                    partida.finalizada ? partida.gols_casa : ""
+                  } x ${partida.finalizada ? partida.gols_fora : ""} ${
+                    partida.time_fora.abreviacao
+                  }`}</>
+                );
               },
             },
             {
               title: "Campeonato",
               dataIndex: "campeonato",
               key: "campeonato",
-              render: (campeonato : Campeonato) => {
+              render: (campeonato: Campeonato) => {
                 return <>{campeonato.nome}</>;
               },
             },
@@ -77,9 +87,9 @@ const ConsultaPartida = () => {
               title: "Horário",
               dataIndex: "horario",
               key: "horario",
-              render: (horario : Horario) => {
-                let hora = horario.hora.split(":")
-                hora.pop()
+              render: (horario: Horario) => {
+                let hora = horario.hora.split(":");
+                hora.pop();
                 return <>{hora.join(":")}</>;
               },
             },
@@ -87,7 +97,7 @@ const ConsultaPartida = () => {
               title: "Quadra",
               dataIndex: "quadra",
               key: "quadra",
-              render: (quadra : Quadra) => {
+              render: (quadra: Quadra) => {
                 return <>{quadra.nome}</>;
               },
             },
@@ -100,19 +110,19 @@ const ConsultaPartida = () => {
                     <NavLink to={`/${cadastroPartida}?uuid=${partida.uuid}`}>
                       <a>Editar</a>
                     </NavLink>
-                    {!partida.finalizada &&
-                    <Popconfirm
-                      title="Deletar partida?"
-                      description="Deseja deletar essa partida? Essa ação é irreversível"
-                      onConfirm={() => {
-                        deletaPartida(partida.uuid);
-                      }}
-                      okText="Sim"
-                      cancelText="Não"
-                    >
-                      <a>Deletar</a>
-                    </Popconfirm>
-                    }
+                    {!partida.finalizada && (
+                      <Popconfirm
+                        title="Deletar partida?"
+                        description="Deseja deletar essa partida? Essa ação é irreversível"
+                        onConfirm={() => {
+                          deletaPartida(partida.uuid);
+                        }}
+                        okText="Sim"
+                        cancelText="Não"
+                      >
+                        <a>Deletar</a>
+                      </Popconfirm>
+                    )}
                   </Space>
                 );
               },
