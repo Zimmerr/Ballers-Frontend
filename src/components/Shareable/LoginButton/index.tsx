@@ -39,7 +39,6 @@ const LoginButton: React.FC<Props> = ({ handleLogin }) => {
         <span className="gsi-material-button-contents">
           Fazer Login com o Google
         </span>
-        <span style={{ display: "none" }}>Fazer Login com o Google</span>
       </div>
     </button>
   );
