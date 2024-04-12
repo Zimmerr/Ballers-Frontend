@@ -17,11 +17,7 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("1");
-    console.log(isSuccess);
-    console.log(googleAuth);
     if (profile) {
-      console.log("2");
       history.push("/landing");
     }
   }, [profile, history]);
