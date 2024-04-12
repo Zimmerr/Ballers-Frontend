@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useGoogleAuthToken from "../../../hooks/useGoogleAuthToken";
 import useGoogleAuthLink from "../../../hooks/useGoogleAuthLink";
 import usePerfil from "../../../hooks/usePerfil";
 import { useHistory } from "react-router-dom";
+import "./style.scss";
+import logo from "../../../assets/ballers_logo.png";
+import LoginButton from "../../Shareable/LoginButton";
+import { Spin } from "antd";
 
 const Login = () => {
   const { data: profile, refetch: fetchProfile } = usePerfil();
   const { data: googleAuth, refetch: fetchGoogleAuth } = useGoogleAuthLink();
   const { mutate, isSuccess } = useGoogleAuthToken();
+  const [carregando, setCarregando] = useState(false);
 
   const history = useHistory();
 
@@ -30,6 +35,7 @@ const Login = () => {
     const state = searchParams.get("state");
 
     if (code && state) {
+      setCarregando(true);
       mutate({ code, state });
     }
   }, [mutate]);
@@ -51,13 +57,22 @@ const Login = () => {
   };
 
   return (
-    <div className="App">
-      {profile ? (
-        <h1>Hello {profile.first_name}!</h1>
-      ) : (
-        <button onClick={handleGoogleLogin}>Login with Google</button>
-      )}
-    </div>
+    <Spin spinning={carregando} tip={"Carregando..."} fullscreen={carregando}>
+      <div className="App login-screen">
+        <div className="login-container">
+          <div className="img">
+            <img src={logo} alt="Logo" />
+          </div>
+
+          <p className="texto">
+            {" "}
+            Bem-vindo ao Ballers! Faça a autenticação através do Google para
+            acessar o sistema:
+          </p>
+          <LoginButton handleLogin={handleGoogleLogin} />
+        </div>
+      </div>
+    </Spin>
   );
 };
 

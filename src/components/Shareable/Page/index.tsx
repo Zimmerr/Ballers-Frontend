@@ -4,6 +4,7 @@ import { Button, Flex, Layout, Menu, Tooltip, theme } from "antd";
 import "./style.scss";
 import { listMenu } from "./menus";
 import { NavLink } from "react-router-dom";
+import logo from "../../../assets/ballers_logo.png";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -25,7 +26,9 @@ export const Page: React.FC<Props> = ({ children, titulo }) => {
   return (
     <Layout className="system-layout">
       <Sider breakpoint="lg" collapsedWidth="0">
-        <div className="demo-logo-vertical" />
+        <div className="demo-logo-vertical">
+          <img src={logo} alt="Logo" />
+        </div>
         <Menu
           theme="dark"
           mode="inline"
