@@ -9,9 +9,10 @@ const { Header, Content, Footer, Sider } = Layout;
 
 interface Props {
   children: ReactNode;
+  titulo?: string;
 }
 
-export const Page: React.FC<Props> = ({ children }) => {
+export const Page: React.FC<Props> = ({ children, titulo }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -28,7 +29,6 @@ export const Page: React.FC<Props> = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["4"]}
           items={listMenu.map((obj, index) => ({
             key: String(index),
             icon: React.createElement(obj.icon),
@@ -49,7 +49,9 @@ export const Page: React.FC<Props> = ({ children }) => {
             </Tooltip>
           </Flex>
         </Header>
+
         <Content style={{ margin: "24px 16px 0" }}>
+          <div className="titulo-pagina">{titulo}</div>
           <div
             style={{
               padding: 24,

@@ -3,7 +3,7 @@ import { getTimes } from "../../../api/time";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { consultaCampeonato } from "../../../configs/constants";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { TimeTransfer } from "../../../interfaces/time.interface";
 import TransferTimes from "./components/TransferTimes";
 import {
@@ -52,9 +52,9 @@ const CadastroCampeonato = () => {
     .filter((item) => Number(item.key) % 3 > 1)
     .map((item) => item.key);
 
-  const [targetKeys, setTargetKeys] = useState<string[]>(originTargetKeys);
+  const [targetKeys, setTargetKeys] = useState<Key[]>(originTargetKeys);
 
-  const onChange = (nextTargetKeys: string[]) => {
+  const onChange = (nextTargetKeys: Key[]) => {
     setTargetKeys(nextTargetKeys);
   };
 

@@ -1,5 +1,6 @@
 import { Campeonato } from "./campeonato.interface";
 import { Jogador } from "./jogador.interface";
+import { Horario, Partida, Quadra } from "./partida.interface";
 import { Time } from "./time.interface";
 
 export interface ResponseInterface {
@@ -29,4 +30,20 @@ export interface ResponseCampeonato extends ResponseInterface {
 
 export interface ResponseCampeonatos extends ResponseInterface {
   data: Campeonato[];
+}
+
+export interface ResponsePartida extends ResponseInterface {
+  data: Partida;
+}
+
+export interface ResponsePartidas extends ResponseInterface {
+  data: Partida[];
+}
+
+export interface ResponseQuadras extends ResponseInterface {
+  data: Quadra[];
+}
+
+export interface ResponseHorarios extends ResponseInterface {
+  data: Horario[];
 }
