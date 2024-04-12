@@ -4,7 +4,7 @@ import { Button, Flex, Layout, Menu, Tooltip, theme } from "antd";
 import "./style.scss";
 import { listMenu } from "./menus";
 import { NavLink } from "react-router-dom";
-import logo from "../../../assets/ballers_logo.png"
+import logo from "../../../assets/ballers_logo.png";
 
 const { Header, Content, Footer, Sider } = Layout;
 
