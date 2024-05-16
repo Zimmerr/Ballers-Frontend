@@ -37,7 +37,7 @@ const Login = () => {
       setCarregando(true);
       mutate({
         code,
-        state: ""
+        state: "",
       });
     }
   }, [mutate]);
