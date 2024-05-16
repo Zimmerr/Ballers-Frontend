@@ -32,12 +32,13 @@ const Login = () => {
     const searchParams = new URLSearchParams(document.location.search);
 
     const code = searchParams.get("code");
+    const state = searchParams.get("state");
 
-    if (code) {
+    if (code && state) {
       setCarregando(true);
       mutate({
         code,
-        state: "",
+        state,
       });
     }
   }, [mutate]);
