@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import Login from "./components/screens/Login";
 import RoutesConfig, { Rota } from "./configs/RoutesConfig";
 
@@ -47,7 +47,7 @@ const PrivateRouter: React.FC<Props> = ({
 };
 
 const Routes = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Switch>
       {RoutesConfig.map((value: Rota, key) => {
         return (
@@ -62,7 +62,7 @@ const Routes = () => (
       })}
       <Route path="/" component={Login} />
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export default Routes;
