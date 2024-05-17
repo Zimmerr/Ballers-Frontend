@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ballers-frontend/static/css/main.dc9f276e.css",
-    "main.js": "/ballers-frontend/static/js/main.11d50b91.js",
+    "main.js": "/ballers-frontend/static/js/main.1b53c1ce.js",
     "index.html": "/ballers-frontend/index.html",
     "main.dc9f276e.css.map": "/ballers-frontend/static/css/main.dc9f276e.css.map",
-    "main.11d50b91.js.map": "/ballers-frontend/static/js/main.11d50b91.js.map"
+    "main.1b53c1ce.js.map": "/ballers-frontend/static/js/main.1b53c1ce.js.map"
   },
   "entrypoints": [
     "static/css/main.dc9f276e.css",
-    "static/js/main.11d50b91.js"
+    "static/js/main.1b53c1ce.js"
   ]
 }
