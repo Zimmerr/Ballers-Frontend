@@ -18,7 +18,7 @@ const Login = () => {
 
   useEffect(() => {
     if (profile) {
-      history.push("/landing")
+      history.push("/landing");
     }
   }, [profile, history]);
 
