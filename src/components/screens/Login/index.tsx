@@ -18,7 +18,7 @@ const Login = () => {
 
   useEffect(() => {
     if (profile) {
-      history.replace("/landing");
+      window.location.replace(process.env.REACT_APP_URL + "/landing");
     }
   }, [profile, history]);
 
